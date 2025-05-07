@@ -49,7 +49,7 @@ def tra_cuu_phat_nguoi():
         print(f"Lỗi: {e}")
     finally:
         driver.quit()
-schedule.every().day.at("20:33").do(tra_cuu_phat_nguoi)
+schedule.every().day.at("06:00").do(tra_cuu_phat_nguoi)
 schedule.every().day.at("12:00").do(tra_cuu_phat_nguoi)
 print("Đang đợi tới giờ chạy.")
 while True:
