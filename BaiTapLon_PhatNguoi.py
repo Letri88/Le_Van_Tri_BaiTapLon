@@ -25,7 +25,7 @@ def solve_captcha(driver):
     captcha_image.save(processed_path)
     captcha_text = pytesseract.image_to_string(
         captcha_image,
-        config='--psm 8 -c tessedit_char_whitelist=ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+        config='--psm 8 -c tessedit_char_whitelist=abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
     ).strip()
     print(f"[OCR] Captcha đọc được: {captcha_text}")
     return captcha_text
@@ -49,7 +49,7 @@ def tra_cuu_phat_nguoi():
         print(f"Lỗi: {e}")
     finally:
         driver.quit()
-schedule.every().day.at("6:00").do(tra_cuu_phat_nguoi)
+schedule.every().day.at("20:33").do(tra_cuu_phat_nguoi)
 schedule.every().day.at("12:00").do(tra_cuu_phat_nguoi)
 print("Đang đợi tới giờ chạy.")
 while True:
