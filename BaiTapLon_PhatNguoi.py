@@ -10,6 +10,7 @@ import os
 from PIL import ImageFilter
 
 pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
+#3. Trích xuất mã bảo mật bằng thư viện pytesseract hoặc thư viện nào đó ra dạng text rồi nhập tự động vào ô Input, bấm tìm kiếm.
 def solve_captcha(driver):
     os.makedirs("captchas", exist_ok=True)
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -32,8 +33,10 @@ def solve_captcha(driver):
 def tra_cuu_phat_nguoi():
     print(f"[{datetime.now()}] Bắt đầu tra cứu...")
     driver = webdriver.Chrome()
+    #1.Vào website đã chọn.
     driver.get("https://www.csgt.vn/tra-cuu-phuong-tien-vi-pham.html")
     time.sleep(3)
+    # 2. Nhập các thông tin Biển số xe, chọn loại phương tiện, 
     try:
         input_bien_so = driver.find_element(By.XPATH, '//*[@id="formBSX"]/div[2]/div[1]/input')
         input_bien_so.send_keys("74B175757") 
@@ -42,6 +45,7 @@ def tra_cuu_phat_nguoi():
         captcha_text = solve_captcha(driver)
         captcha_input = driver.find_element(By.XPATH, '//*[@id="formBSX"]/div[2]/div[3]/div/input')
         captcha_input.send_keys(captcha_text)
+        # 4. Kiểm tra kết quả phạt nguội.
         driver.find_element(By.XPATH, '//*[@id="formBSX"]/div[2]/input[1]').click()
         time.sleep(5)
         print("Đã tra cứu.")
@@ -49,7 +53,8 @@ def tra_cuu_phat_nguoi():
         print(f"Lỗi: {e}")
     finally:
         driver.quit()
-schedule.every().day.at("06:00").do(tra_cuu_phat_nguoi)
+    #5. Set lịch chạy 6h sáng và 12h trưa hằng ngày.
+schedule.every().day.at("20:35").do(tra_cuu_phat_nguoi)
 schedule.every().day.at("12:00").do(tra_cuu_phat_nguoi)
 print("Đang đợi tới giờ chạy.")
 while True:
