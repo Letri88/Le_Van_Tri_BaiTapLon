@@ -54,7 +54,7 @@ def tra_cuu_phat_nguoi():
     finally:
         driver.quit()
     #5. Set lịch chạy 6h sáng và 12h trưa hằng ngày.
-schedule.every().day.at("20:35").do(tra_cuu_phat_nguoi)
+schedule.every().day.at("06:00").do(tra_cuu_phat_nguoi)
 schedule.every().day.at("12:00").do(tra_cuu_phat_nguoi)
 print("Đang đợi tới giờ chạy.")
 while True:
